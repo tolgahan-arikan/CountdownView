@@ -1,0 +1,16 @@
+PODS:
+  - CountdownView (0.1.0)
+
+DEPENDENCIES:
+  - CountdownView (from `../`)
+
+EXTERNAL SOURCES:
+  CountdownView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CountdownView: 51bb022ad39ffc87dd9ec46623e773443862ae08
+
+PODFILE CHECKSUM: fba01a5ea5874ce87cde224d3ca623da2aa635f7
+
+COCOAPODS: 1.2.0.beta.3
