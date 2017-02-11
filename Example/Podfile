@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CountdownView_Example' do
+  pod 'CountdownView', :path => '../'
+
+  target 'CountdownView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
