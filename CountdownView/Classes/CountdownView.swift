@@ -203,17 +203,19 @@ public class CountdownView: UIView {
       case .fadeInLeft:
         autoHideAnimation = .fadeOutRight
       case .fadeInRight:
-        autoHideAnimation = .fadeInLeft
+        autoHideAnimation = .fadeOutLeft
       case .zoomIn:
         autoHideAnimation = .zoomOut
       default:
         autoHideAnimation = .fadeOut
       }
-      hide(animation: autoHideAnimation, options: (duration: 0.5, delay: 0.2)) {
-        if completion != nil {
-          completion!()
-        }
-      }
+      delay(countdownFrom, closure: { 
+        hide(animation: autoHideAnimation, options: (duration: 0.4, delay: 0)) {
+          if completion != nil {
+            completion!()
+          }
+        }        
+      })
     } else {
       if completion != nil {
         completion!()
@@ -253,11 +255,11 @@ public class CountdownView: UIView {
   
   @objc fileprivate func updateCounter() {
     if countdownFrom == 2 {
-      animateStrokeEnd(for: spinnerCircle, duration: 1.5)
+      animateStrokeEnd(for: spinnerCircle, duration: 1.4)
       animateStrokeColor(for: spinnerCircle, duration: 0.6, from: spinnerStartColor, to: spinnerEndColor)
     }
     if countdownFrom == 1 {
-      delay(0.6, closure: {
+      delay(0.5, closure: {
         self.spin(false)
       })
     }
@@ -318,17 +320,11 @@ public class CountdownView: UIView {
     return self
   }
   
-  internal func delay(_ delay:Double, closure:@escaping ()->()) {
-    DispatchQueue.main.asyncAfter(
-      deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-  }
-  
 }
 
 // Animations
 
 extension CountdownView {
-  
   
   // MARK: Animations
   
@@ -346,6 +342,7 @@ extension CountdownView {
   fileprivate func animate(_ view: UIView, animation: Animation, options: (duration: Double, delay: Double), completion: (()->())?) {
     switch animation {
     case .fadeIn:
+      view.alpha = 0
       UIView.animate(withDuration: options.duration, delay: options.delay, options: .transitionCrossDissolve, animations: {
         view.alpha = 1
       }, completion: { _ in
@@ -382,18 +379,16 @@ extension CountdownView {
         }
       })
     case .fadeOutLeft:
-      UIView.animate(withDuration: options.duration, delay: options.delay, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.2, options: .curveEaseIn, animations: {
-        self.alpha = 1
-        self.center.x = view.center.x - self.bounds.width
+      UIView.animate(withDuration: options.duration, delay: options.delay, usingSpringWithDamping: 0.8, initialSpringVelocity: -1.2, options: .curveEaseIn, animations: {
+        view.center.x = view.center.x - self.bounds.width
       }, completion: { _ in
         if completion != nil {
           completion!()
         }
       })
     case .fadeOutRight:
-      UIView.animate(withDuration: options.duration, delay: options.delay, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.2, options: .curveEaseIn, animations: {
-        self.alpha = 1
-        self.center.x = view.center.x + self.bounds.width
+      UIView.animate(withDuration: options.duration, delay: options.delay, usingSpringWithDamping: 0.8, initialSpringVelocity: -1.2, options: .curveEaseIn, animations: {
+        view.center.x = view.center.x + self.bounds.width
       }, completion: { _ in
         if completion != nil {
           completion!()
@@ -442,4 +437,9 @@ extension CountdownView {
     }
   }
   
+}
+
+internal func delay(_ delay:Double, closure:@escaping ()->()) {
+  DispatchQueue.main.asyncAfter(
+    deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
