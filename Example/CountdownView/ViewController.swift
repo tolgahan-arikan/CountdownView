@@ -7,18 +7,158 @@
 //
 
 import UIKit
+import CountdownView
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+  
+  @IBOutlet weak var countDownFromTextField: UITextField!
+  @IBOutlet weak var spinSwitch: UISwitch!
+  @IBOutlet weak var autohideSwitch: UISwitch!
+  
+  @IBOutlet weak var appearingAnimationField: UITextField!
+  @IBOutlet weak var disappearingAnimationField: UITextField!
+  
+  @IBOutlet weak var disappearingAnimationContainer: UIStackView!
+  
+  var appearingAnimations = ["fade in", "fade in left", "fade in right", "zoom in"]
+  var disappearingAnimations = ["fade out", "fade out left", "fade out right", "zoom out"]
+  
+  var countDownFrom: Double = 5
+  var appearingAnimation = CountdownView.Animation.fadeIn
+  var disappearingAnimation = CountdownView.Animation.fadeOut
+  var spin = true
+  var autohide = false
+  
+  lazy var animationPicker: UIPickerView = {
+    let picker = UIPickerView()
+    picker.dataSource = self
+    picker.delegate = self
+    
+    return picker
+  }()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    autohideSwitch.isOn = false
+    
+    spinSwitch.addTarget(self, action: #selector(didSwitchSpinSwitch(_:)), for: .valueChanged)
+    autohideSwitch.addTarget(self, action: #selector(didSwitchAutohideSwitch(_:)), for: .valueChanged)
+    
+    appearingAnimationField.inputView = animationPicker
+    disappearingAnimationField.inputView = animationPicker
+    
+    appearingAnimationField.text = appearingAnimations[0]
+    disappearingAnimationField.text = disappearingAnimations[0]
+    
+    // Do any additional setup after loading the view, typically from a nib.
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  // MARK: Actions
+  
+  func didSwitchSpinSwitch(_ sender: UISwitch) {
+    if sender.isOn {
+      spin = true
+    } else {
+      spin = false
     }
+  }
+  
+  func didSwitchAutohideSwitch(_ sender: UISwitch) {
+    if sender.isOn {
+      autohide = true
+      
+      UIView.animate(withDuration: 0.4, animations: {
+        self.disappearingAnimationContainer.alpha = 0
+      }) { _ in
+        self.disappearingAnimationContainer.isHidden = true
+      }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    } else {
+      autohide = false
+      
+      disappearingAnimationContainer.isHidden = false
+      UIView.animate(withDuration: 0.4, animations: {
+        self.disappearingAnimationContainer.alpha = 1
+      })
+      
     }
+  }
+  
+  @IBAction func didTapStartCounterButton(_ sender: UIButton) {
+    CountdownView.show(countdownFrom: countDownFrom, spin: spin, animation: appearingAnimation, autoHide: autohide, completion: nil)
+    
+    if !autohide {
+      delay(countDownFrom, closure: {
+        CountdownView.hide(animation: self.disappearingAnimation, options: (duration: 0.5, delay: 0.2), completion: nil)
+      })
+    }
+  }
+  
+}
 
+extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    if appearingAnimationField.isFirstResponder {
+      return appearingAnimations.count
+    } else {
+      return disappearingAnimations.count
+    }
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    if appearingAnimationField.isFirstResponder {
+      return appearingAnimations[row]
+    } else {
+      return disappearingAnimations[row]
+    }
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    if appearingAnimationField.isFirstResponder {
+      appearingAnimationField.text = appearingAnimations[row]
+      appearingAnimationField.resignFirstResponder()
+      switch appearingAnimationField.text! {
+        case appearingAnimations[0]:
+          appearingAnimation = .fadeIn
+        case appearingAnimations[1]:
+          appearingAnimation = .fadeInLeft
+        case appearingAnimations[2]:
+          appearingAnimation = .fadeInRight
+        case appearingAnimations[3]:
+          appearingAnimation = .zoomIn
+        default: break
+      }
+    } else {
+      disappearingAnimationField.text = disappearingAnimations[row]
+      disappearingAnimationField.resignFirstResponder()
+      switch disappearingAnimationField.text! {
+      case disappearingAnimations[0]:
+        disappearingAnimation = .fadeOut
+      case disappearingAnimations[1]:
+        disappearingAnimation = .fadeOutLeft
+      case disappearingAnimations[2]:
+        disappearingAnimation = .fadeOutRight
+      case disappearingAnimations[3]:
+        disappearingAnimation = .zoomOut
+      default: break
+      }
+    }
+  }
+  
+}
+
+internal func delay(_ delay:Double, closure:@escaping ()->()) {
+  DispatchQueue.main.asyncAfter(
+    deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
