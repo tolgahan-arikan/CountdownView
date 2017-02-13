@@ -4,6 +4,10 @@ CountdownView
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/language-swift3-f48041.svg?style=flat"></a>
 <a href="https://developer.apple.com/ios"><img src="https://img.shields.io/badge/platform-iOS%209%2B-blue.svg?style=flat"></a>
 
+## Preview
+
+<img src="Screenshots/demo-1.gif" width="300">
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
