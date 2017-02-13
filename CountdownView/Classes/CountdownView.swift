@@ -210,7 +210,7 @@ public class CountdownView: UIView {
         autoHideAnimation = .fadeOut
       }
       delay(countdownFrom, closure: { 
-        hide(animation: autoHideAnimation, options: (duration: 0.4, delay: 0)) {
+        hide(animation: autoHideAnimation, options: (duration: 0.5, delay: 0.2)) {
           if completion != nil {
             completion!()
           }
@@ -308,6 +308,7 @@ public class CountdownView: UIView {
   public func updateFrame() {
     if let containerView = CountdownView.containerView() {
       CountdownView.shared.frame = containerView.bounds
+      CountdownView.shared.contentView.center = containerView.center
     }
   }
   
