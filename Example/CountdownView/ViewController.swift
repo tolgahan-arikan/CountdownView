@@ -40,6 +40,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    title = "CountdownView"
+    
     countDownFromTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
     autohideSwitch.isOn = false
@@ -53,12 +55,6 @@ class ViewController: UIViewController {
     appearingAnimationField.text = appearingAnimations[0]
     disappearingAnimationField.text = disappearingAnimations[0]
     
-    // Do any additional setup after loading the view, typically from a nib.
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   // MARK: Actions
@@ -79,6 +75,10 @@ class ViewController: UIViewController {
         self.disappearingAnimationContainer.alpha = 0
       }) { _ in
         self.disappearingAnimationContainer.isHidden = true
+        
+        UIView.animate(withDuration: 0.4, animations: {
+          self.view.layoutIfNeeded()
+        })
       }
 
     } else {
@@ -87,6 +87,10 @@ class ViewController: UIViewController {
       disappearingAnimationContainer.isHidden = false
       UIView.animate(withDuration: 0.4, animations: {
         self.disappearingAnimationContainer.alpha = 1
+      })
+      
+      UIView.animate(withDuration: 0.4, animations: {
+        self.view.layoutIfNeeded()
       })
       
     }
