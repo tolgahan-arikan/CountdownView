@@ -40,6 +40,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    countDownFromTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    
     autohideSwitch.isOn = false
     
     spinSwitch.addTarget(self, action: #selector(didSwitchSpinSwitch(_:)), for: .valueChanged)
@@ -87,6 +89,14 @@ class ViewController: UIViewController {
         self.disappearingAnimationContainer.alpha = 1
       })
       
+    }
+  }
+  
+  func textFieldDidChange(_ sender: UITextField) {
+    if let num = Double(sender.text!) {
+      countDownFrom = num
+    } else {
+      countDownFrom = 5
     }
   }
   
