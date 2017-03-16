@@ -9,6 +9,16 @@ CountdownView
 
 <img src="Screenshots/demo-1.gif" width="300">
 
+
+## Installation
+
+CountdownView is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod "CountdownView"
+```
+
 ## Usage
 1. import the pod
 
@@ -47,15 +57,6 @@ CountdownView
 - iOS 9.0+
 - Swift 3+
 - ARC
-
-## Installation
-
-CountdownView is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "CountdownView"
-```
 
 ## License
 
