@@ -105,13 +105,49 @@ class ViewController: UIViewController {
   }
   
   @IBAction func didTapStartCounterButton(_ sender: UIButton) {
-    CountdownView.show(countdownFrom: countDownFrom, spin: spin, animation: appearingAnimation, autoHide: autohide, completion: nil)
+    
+    /* CUSTOMIZING THE VIEWS
+       
+       Great news, everyone! You can customize the views as weird or beautiful as you want!
+       You can find the all public properties in source file.
+     
+       - Examples -
+
+       CountdownView.shared.frameSize = CGSize(width: 200.0, height: 200.0)
+       CountdownView.shared.backgroundViewColor = UIColor.cyan
+       CountdownView.shared.counterViewBackgroundColor = UIColor(white: 1, alpha: 0.5)
+     
+    */
+    
+    
+    /* DISMISS STYLE
+     
+       You can set dismiss style to close the counter with button or
+       tapping the outside of counter. You can also choose the
+       dismissing/hiding animation.
+      
+       - Examples -
+     
+       CountdownView.shared.dismissStyle = .byTapOnOutside
+       CountdownView.shared.dismissStyleAnimation = .zoomOut
+     
+    */
+    
+    CountdownView.shared.dismissStyle = .byButton
+    
+    CountdownView.show(countdownFrom: countDownFrom, spin: spin, animation: appearingAnimation, autoHide: autohide,
+                       completion: self.exampleCompletion)
     
     if !autohide {
       delay(countDownFrom, closure: {
-        CountdownView.hide(animation: self.disappearingAnimation, options: (duration: 0.5, delay: 0.2), completion: nil)
+        CountdownView.hide(animation: self.disappearingAnimation, options: (duration: 0.5, delay: 0.2),
+                           completion: nil)
       })
     }
+  }
+  
+  func exampleCompletion() {
+    print("Hey there! I am the completion thingy you are looking for.")
   }
   
 }
