@@ -283,14 +283,18 @@ public class CountdownView: UIView {
       
       CountdownView.shared.timedTask = DispatchWorkItem {
         hide(animation: autoHideAnimation, options: (duration: 0.5, delay: 0.2)) {
-          completion!()
+          if completion != nil {
+            completion!()
+          }
         }
       }
       DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + countdownFrom, execute: CountdownView.shared.timedTask)
       
     } else {
       CountdownView.shared.timedTask = DispatchWorkItem {
-        completion!()
+        if completion != nil {
+          completion!()
+        }
       }
       DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + countdownFrom, execute: CountdownView.shared.timedTask)
     }

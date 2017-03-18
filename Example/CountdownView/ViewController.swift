@@ -136,7 +136,7 @@ class ViewController: UIViewController {
     CountdownView.shared.dismissStyle = .byButton
     
     CountdownView.show(countdownFrom: countDownFrom, spin: spin, animation: appearingAnimation, autoHide: autohide,
-                       completion: self.exampleCompletion)
+                       completion: nil)
     
     if !autohide {
       delay(countDownFrom, closure: {
