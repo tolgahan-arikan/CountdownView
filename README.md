@@ -52,6 +52,61 @@ pod "CountdownView"
 - zoomIn
 - zoomOut
 
+## Customizing
+
+  You can access the properties below from CountdownView's shared instance before you call the ```show``` function
+  as you can see in the example and customize it any way you like and need.
+
+
+  #### Example
+  ```swift
+  
+  CountdownView.shared.frameSize = CGSize(width: 200.0, height: 200.0)
+  
+  CountdownView.shared.backgroundViewColor = UIColor.cyan
+  
+  CountdownView.shared.dismissStyle = .byTapOnOutside
+   
+  CountdownView.show(countdownFrom: Double, spin: Bool, animation: Animation)
+  ```
+
+  #### All properties
+  ```swift
+  public var dismissStyle: DismissStyle
+  public var dismissStyleAnimation: Animation
+  
+  public var frameSize: CGSize
+  public var framePosition: CGPoint
+  
+  public var backgroundViewColor: UIColor
+  
+  public var counterViewBackgroundColor: UIColor
+  public var counterViewShadowColor: UIColor
+  public var counterViewShadowRadius: CGFloat
+  public var counterViewShadowOpacity: Float
+  
+  public var spinnerLineWidth: CGFloat
+  public var spinnerInset: CGFloat
+  public var spinnerStartColor: UIColor
+  public var spinnerEndColor: UIColor
+  public var colorTransition: Bool 
+  
+  public var counterLabelFont: UIFont
+  public var counterLabelTextColor: UIColor
+  
+  public var counterSubLabelText: String
+  public var counterSubLabelFont: UIFont
+  public var counterSubLabelTextColor: UIColor  
+  
+  public var closeButtonTitleLabelText: String
+  public var closeButtonTitleLabelFont: UIFont
+  public var closeButtonTitleLabelColor: UIColor
+  public var closeButtonTopAnchorConstant: CGFloat
+  public var closeButtonLeftAnchorConstant: CGFloat
+  public var closeButtonImage: UIImage
+  public var closeButtonTintColor: UIColor
+  ```
+  
 ## Requirements
 
 - iOS 9.0+
