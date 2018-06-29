@@ -405,7 +405,7 @@ public class CountdownView: UIView {
   
   // MARK: Util
   
-  public func updateFrame() {
+    @objc public func updateFrame() {
     if let containerView = CountdownView.containerView() {
       CountdownView.shared.frame = containerView.bounds
       CountdownView.shared.contentView.center = containerView.center
