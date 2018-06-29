@@ -111,7 +111,6 @@ pod "CountdownView"
 
 - iOS 9.0+
 - Swift 3+
-- ARC
 
 ## License
 
