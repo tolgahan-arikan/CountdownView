@@ -116,7 +116,7 @@ public class CountdownView: UIView {
     spinnerCircle.lineWidth = spinnerLineWidth
     spinnerCircle.strokeStart = 0
     spinnerCircle.strokeEnd = 0.33
-    spinnerCircle.lineCap = kCALineCapRound
+    spinnerCircle.lineCap = CAShapeLayerLineCap.round
     spinnerCircle.fillColor = UIColor.clear.cgColor
     spinnerCircle.strokeColor = spinnerStartColor
     spinnerCircleView.layer.addSublayer(spinnerCircle)
@@ -240,7 +240,7 @@ public class CountdownView: UIView {
         NotificationCenter.default.addObserver(
           countdownView,
           selector: #selector(CountdownView.updateFrame),
-          name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation,
+          name: UIApplication.didChangeStatusBarOrientationNotification,
           object: nil)
       #endif
     }
@@ -363,9 +363,9 @@ public class CountdownView: UIView {
       animation.fromValue = 0.33
       animation.toValue = 1
       animation.duration = duration
-      animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
       animation.repeatCount = 0
-      animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
       animation.isRemovedOnCompletion = false
       return animation
     }()
@@ -379,9 +379,9 @@ public class CountdownView: UIView {
       animation.fromValue = from
       animation.toValue = to
       animation.duration = duration
-      animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
       animation.repeatCount = 0
-      animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
       animation.isRemovedOnCompletion = false
       return animation
     }()
