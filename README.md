@@ -12,6 +12,10 @@ CountdownView
 
 ## Installation
 
+You can just add the CountdownView folder to your project,
+
+OR
+
 CountdownView is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
@@ -20,7 +24,7 @@ pod "CountdownView"
 ```
 
 ## Usage
-1. import the pod
+1. import the pod (if you used CocoaPods)
 
   ```swift
   import CountdownView
