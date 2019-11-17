@@ -12,25 +12,13 @@ CountdownView
 
 ## Installation
 
+Disclaimer note that came after 3 years: I would not suggest to actually use this. It was mostly a learning experience. In case you are trying to build something similar and trying to find a starting point, I would advise just checking the animation implementation part.
+
 You can just add the CountdownView folder to your project,
 
-OR
-
-CountdownView is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "CountdownView"
-```
 
 ## Usage
-1. import the pod (if you used CocoaPods)
-
-  ```swift
-  import CountdownView
-  ```
-
-2. use the basic show method or the one with completion block and automatic hiding
+1. use the basic show method or the one with completion block and automatic hiding
 
   ```swift
   CountdownView.show(countdownFrom: Double, spin: Bool, animation: Animation)
@@ -40,7 +28,7 @@ pod "CountdownView"
   CountdownView.show(countdownFrom: Double, spin: Bool, animation: Animation, autoHide: Bool, completion: (()->())?)
   ```
 
-3. hide if you didn't use auto hiding
+2. hide if you didn't use auto hiding
 
   ```swift
   CountdownView.hide(animation: Animation, options: (duration: Double, delay: Double), completion: (()->())?)
