@@ -14,7 +14,7 @@ CountdownView
 
 Disclaimer note that came after 3 years: I would not suggest to actually use this. It was mostly a learning experience. In case you are trying to build something similar and trying to find a starting point, I would advise just checking the animation implementation part.
 
-You can just add the CountdownView folder to your project,
+If you want to use it anyway, you can just add the CountdownView folder to your project.
 
 
 ## Usage
